@@ -1,0 +1,3 @@
+[submodule "OTExtension"]
+	path = OTExtension
+	url = git@github.com:encryptogroup/OTExtension.git
