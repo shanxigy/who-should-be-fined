@@ -9,3 +9,11 @@ include_directories(test "/usr/local/include")
 add_executable(otmain otmain.cpp)
 target_link_libraries(otmain OTExtension::otextension)
 include_directories(otmain "/usr/local/include")
+
+add_executable(simple-sender simple-ot-sender.cpp)
+target_link_libraries(simple-sender OTExtension::otextension)
+include_directories(simple-sender "/usr/local/include")
+
+add_executable(simple-receiver simple-ot-receiver.cpp)
+target_link_libraries(simple-receiver OTExtension::otextension)
+include_directories(simple-receiver "/usr/local/include")
