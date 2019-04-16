@@ -5,6 +5,8 @@
 #include <map>
 #include "record.hpp"
 
+// @TODO: network functionality is missing
+
 class Ledger
 {
 public:
