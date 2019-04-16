@@ -2,8 +2,8 @@
 #define FILE_HANDLER_H
 
 #include <iostream>
-#include <fstream>
 #include <list>
+#include <utility>
 
 static int FIELD = 100; // the value of x in R%x to drop some rows for receiver
 static int TOTAL_RECEIVER = 3; // ID: 1, 2, 3
@@ -32,8 +32,11 @@ dropForReceiver(int totalRowNumber, int rowNumber, int receiverID)
 }
 
 // get the keywords with the popularity
+std::list<std::pair<uint16_t, double> >
+parseKeyWords(const std::string& fileName);
+
 void
-parseKeyWords(const std::string& fileName, std::list<std::pair<uint16_t, double>>& keywords);
+obtainPopularity(std::list<std::pair<uint16_t, double> >& keywords, const std::list<std::string>& fileNames);
 
 // Step0: reorder the rest keywords
 // Step1: add the popular keywords into the result @forReceiver
