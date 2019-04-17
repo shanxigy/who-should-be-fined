@@ -1,4 +1,5 @@
 #include "file-handler.hpp"
+#include <fstream>
 
 int
 main(int argc, char* argv[])
@@ -10,15 +11,17 @@ main(int argc, char* argv[])
 
   std::list<std::string> fileNames;
   fileNames.push_back("../../netflix-prize-data/combined_data_1.txt");
-  // fileNames.push_back("../../netflix-prize-data/combined_data_2.txt");
-  // fileNames.push_back("../../netflix-prize-data/combined_data_3.txt");
-  // fileNames.push_back("../../netflix-prize-data/combined_data_4.txt");
+  fileNames.push_back("../../netflix-prize-data/combined_data_2.txt");
+  fileNames.push_back("../../netflix-prize-data/combined_data_3.txt");
+  fileNames.push_back("../../netflix-prize-data/combined_data_4.txt");
   obtainPopularity(results, fileNames);
 
   auto it = results.begin();
-  for (int i = 0; i < 100; i++) {
-    std::cout << "ID: " << it->first << " Pop :" << it->second << std::endl;
-    it++;
+  std::ofstream outputFile;
+  outputFile.open("../heatmap.txt");
+  for (auto it = results.begin(); it != results.end(); it++) {
+    outputFile << std::fixed << it->first << "," << it->second << std::endl;
   }
+  outputFile.close();
   return 0;
 }

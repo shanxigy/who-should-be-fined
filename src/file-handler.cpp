@@ -32,6 +32,7 @@ obtainPopularity(std::list<std::pair<uint16_t, double> >& keywords, const std::l
       if (line == std::to_string(keywordsIt->first) + ":") {
         if (keywordsIt2 != keywordsIt) {
           keywordsIt2->second = keywordEntries;
+          totalEntries += keywordEntries;
           keywordEntries = 0;
           keywordsIt2++;
         }
@@ -41,6 +42,12 @@ obtainPopularity(std::list<std::pair<uint16_t, double> >& keywords, const std::l
       keywordEntries++;
     }
     data.close();
+  }
+
+  keywordsIt = keywords.begin();
+  while (keywordsIt != keywords.end()) {
+    keywordsIt->second = keywordsIt->second / totalEntries;
+    keywordsIt++;
   }
   return;
 }
