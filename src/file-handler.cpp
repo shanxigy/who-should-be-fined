@@ -46,6 +46,10 @@ obtainPopularity(std::list<std::pair<uint16_t, double> >& keywords, const std::l
     data.close();
   }
 
+  // insert the results for the last keyword
+  keywordsIt2->second = keywordEntries;
+  totalEntries += keywordEntries;
+
   keywordsIt = keywords.begin();
   while (keywordsIt != keywords.end()) {
     keywordsIt->second = keywordsIt->second / totalEntries;

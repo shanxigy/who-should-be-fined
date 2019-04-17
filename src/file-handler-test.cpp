@@ -4,6 +4,7 @@
 int
 main(int argc, char* argv[])
 {
+  /*======================For The First Time Parse Data========================*/
   // // get the keywords
   // auto results = parseKeyWords("../../netflix-prize-data/movie_titles.csv");
   // std::list<std::string> fileNames;
@@ -14,12 +15,13 @@ main(int argc, char* argv[])
   // // get the keyword's popularity
   // obtainPopularity(results, fileNames);
   // // output the results to heatmap
-  // std::ofstream outputFile;
-  // outputFile.open("../heatmap.txt");
+  // std::ofstream heatMapFile;
+  // heatMapFile.open("../heatmap.txt");
   // for (auto it = results.begin(); it != results.end(); it++) {
-  //   outputFile << std::fixed << it->first << "," << it->second << std::endl;
+  //   heatMapFile << std::fixed << it->first << "," << it->second << std::endl;
   // }
-  // outputFile.close();
+  // heatMapFile.close();
+  /*====================Otherwise, directly read from heatmap====================*/
   auto results = parseHeatMap("../heatmap.txt");
 
   // strip popular records
@@ -27,16 +29,16 @@ main(int argc, char* argv[])
   std::list<uint16_t> popKeys;
   stripPopularRecords(results, afterStrip, popKeys);
 
-  // shuffle the unpop records
+  // shuffle the unpopular records
   shuffleList(afterStrip);
 
   // output the afterStrip to heatmap
-  std::ofstream outputFile;
-  outputFile.open("../shuffledListAfterStrip.txt");
+  std::ofstream shuffledListFile;
+  shuffledListFile.open("../shuffledListAfterStrip.txt");
   for (auto it = afterStrip.begin(); it != afterStrip.end(); it++) {
-    outputFile << std::fixed << *it << std::endl;
+    shuffledListFile << std::fixed << *it << std::endl;
   }
-  outputFile.close();
+  shuffledListFile.close();
 
   return 0;
 }
