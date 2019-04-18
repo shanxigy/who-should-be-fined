@@ -14,21 +14,19 @@ static double POPUlAR_KEYWORD_THRESHOLD = 0.0015;
 static int OT_LOSS_RATE_NUMERATOR = 1;
 static int OT_LOSS_RATE_DENOMINATOR = 5;
 
-static int RANGE_SIZE = 0;
-
 static inline void
 initRangeSize(int totalRowNumber)
 {
   double dropRowSize = (1 - LEAST_MAKE_SENSE_PERCENT * OT_LOSS_RATE_DENOMINATOR / (OT_LOSS_RATE_DENOMINATOR - OT_LOSS_RATE_NUMERATOR)) * totalRowNumber;
-  RANGE_SIZE = (int)(dropRowSize * FIELD);
-  assert(RANGE_SIZE * TOTAL_RECEIVER < FIELD);
+  // RANGE_SIZE = (int)(dropRowSize * FIELD);
+  // assert(RANGE_SIZE * TOTAL_RECEIVER < FIELD);
 }
 
 static inline bool
-dropForReceiver(int totalRowNumber, int rowNumber, int receiverID)
+dropForReceiver(int rowNumber, int receiverID,
+                int maskRange, int field = OT_LOSS_RATE_DENOMINATOR)
 {
-  int rangeSize = (1 - LEAST_MAKE_SENSE_PERCENT * OT_LOSS_RATE_DENOMINATOR / (OT_LOSS_RATE_DENOMINATOR - OT_LOSS_RATE_NUMERATOR)) * totalRowNumber;
-  return rowNumber % FIELD > (receiverID - 1) * RANGE_SIZE && rowNumber % FIELD < receiverID * RANGE_SIZE;
+  return rowNumber % field >= (receiverID - 1) * maskRange && rowNumber % field < receiverID * maskRange;
 }
 
 // get the keywords with the popularity
@@ -56,12 +54,12 @@ stripPopularRecords(const std::list<std::pair<uint16_t, double> >& keywords, std
 void
 shuffleList(std::list<uint16_t>& keywords);
 
-// Step0: reorder the rest keywords
-// Step1: add the popular keywords into the result @forReceiver
-// Step2: use row number to determine the rows sent to receiver @receiverID
-// Step3: order the selected keywords and append them into the result @forReceiver
+// Step1: use row number to determine the rows sent to receiver @receiverID
+// Step2: order the selected keywords and append them into the result @forReceiver
 void
-keyWordsForReceiver(std::list<std::pair<uint16_t, double> >& wholeSet, std::list<uint16_t>& forReceiver, int receiverID);
+keyWordsForReceiver(const std::list<uint16_t>& wholeSet, std::list<uint16_t>& forReceiver, 
+                    int receiverID, int maskRange = OT_LOSS_RATE_NUMERATOR, 
+                    int field = OT_LOSS_RATE_DENOMINATOR);
 
 // read rows from the dataset into the buf
 void

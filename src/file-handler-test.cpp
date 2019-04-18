@@ -22,23 +22,56 @@ main(int argc, char* argv[])
   // }
   // heatMapFile.close();
   /*====================Otherwise, directly read from heatmap====================*/
-  auto results = parseHeatMap("../heatmap.txt");
+  // auto results = parseHeatMap("../heatmap.txt");
+  auto results = parseHeatMapOnlyKeys("../../datasets/heatmap.txt");
 
-  // strip popular records
-  std::list<uint16_t> afterStrip;
-  std::list<uint16_t> popKeys;
-  stripPopularRecords(results, afterStrip, popKeys);
+  /*============================Strip popular records============================*/
+  // std::list<uint16_t> afterStrip;
+  // std::list<uint16_t> popKeys;
+  // stripPopularRecords(results, afterStrip, popKeys);
 
-  // shuffle the unpopular records
-  shuffleList(afterStrip);
-
+  /*============================Shuffle static keywords===========================*/
+  shuffleList(results);
   // output the afterStrip to heatmap
   std::ofstream shuffledListFile;
-  shuffledListFile.open("../shuffledListAfterStrip.txt");
-  for (auto it = afterStrip.begin(); it != afterStrip.end(); it++) {
-    shuffledListFile << std::fixed << *it << std::endl;
+  shuffledListFile.open("../../datasets/shuffled.txt");
+  for (auto it = results.begin(); it != results.end(); it++) {
+    shuffledListFile << *it << std::endl;
   }
   shuffledListFile.close();
+
+  // get keywords for receiver A, B, C
+  std::list<uint16_t> forA, forB, forC;
+  keyWordsForReceiver(results, forA, 1);
+  keyWordsForReceiver(results, forB, 2);
+  keyWordsForReceiver(results, forC, 3);
+  std::cout << "entries toA, toB, toC: " << forA.size() << ", " << forB.size() << ", " << forC.size() << std::endl;
+
+  // write to txt files
+  std::ofstream forAFile, forBFile, forCFile;
+  forAFile.open("../../datasets/forAFile.txt");
+  forBFile.open("../../datasets/forBFile.txt");
+  forCFile.open("../../datasets/forCFile.txt");
+  auto itA = forA.begin();
+  auto itB = forB.begin();
+  auto itC = forC.begin();
+  while (itA != forA.end() && itB != forB.end() && itC != forC.end()) {
+    if (itA != forA.end()) {
+      forAFile << *itA << std::endl;
+      itA++;
+    }
+    if (itB != forB.end()) {
+      forBFile << *itB << std::endl;
+      itB++;
+    }
+    if (itC != forC.end()) {
+      forCFile << *itC << std::endl;
+      itC++;
+    }
+  }
+  forAFile.close();
+  forBFile.close();
+  forCFile.close();
 
   return 0;
 }

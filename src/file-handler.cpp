@@ -134,15 +134,20 @@ shuffleList(std::list<uint16_t>& keywords)
   keywords.swap(shuffled_list);
 }
 
-// Step0: reorder the rest keywords
-// Step1: add the popular keywords into the result @forReceiver
-// Step2: use row number to determine the rows sent to receiver @receiverID
-// Step3: order the selected keywords and append them into the result @forReceiver
+// Step1: use row number to determine the rows sent to receiver @receiverID
+// Step2: order the selected keywords and append them into the result @forReceiver
 void
-keyWordsForReceiver(const std::list<uint16_t>& wholeSet, std::list<uint16_t>& forReceiver, int receiverID)
+keyWordsForReceiver(const std::list<uint16_t>& wholeSet, std::list<uint16_t>& forReceiver,
+                    int receiverID, int maskRange, int field)
 {
-
-  return;
+  int lineNum = 0;
+  for (auto it = wholeSet.begin(); it != wholeSet.end(); it++) {
+    if (!dropForReceiver(lineNum, receiverID, maskRange, field)) {
+      forReceiver.push_back(*it);
+    }
+    lineNum++;
+  }
+  forReceiver.sort();
 }
 
 void
