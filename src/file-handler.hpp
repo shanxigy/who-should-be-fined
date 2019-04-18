@@ -43,6 +43,10 @@ obtainPopularity(std::list<std::pair<uint16_t, double> >& keywords, const std::l
 std::list<std::pair<uint16_t, double> >
 parseHeatMap(const std::string& fileName);
 
+// get the keywords only
+std::list<uint16_t>
+parseHeatMapOnlyKeys(const std::string& fileName);
+
 // return popular keyword list, remaining keywords are in @afterStrip
 void
 stripPopularRecords(const std::list<std::pair<uint16_t, double> >& keywords, std::list<uint16_t>& afterStrip,

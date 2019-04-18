@@ -75,6 +75,21 @@ parseHeatMap(const std::string& fileName)
   return keywords;
 }
 
+std::list<uint16_t>
+parseHeatMapOnlyKeys(const std::string& fileName)
+{
+  std::list<uint16_t> keywords;
+  std::ifstream data(fileName);
+  std::string delimiter = ",";
+  std::string line;
+  while(std::getline(data, line)) {
+    std::string id = line.substr(0, line.find(delimiter));
+    keywords.push_back(std::stoi(id));
+  }
+  data.close();
+  return keywords;
+}
+
 void
 stripPopularRecords(const std::list<std::pair<uint16_t, double> >& keywords, std::list<uint16_t>& afterStrip,
                     std::list<uint16_t>& popularKeys, double threshold)
