@@ -1,0 +1,29 @@
+\section{Insights from structured dataset}
+
+\subsection{Dataset collection}
+
+\subsection{Critical keywords in structured dataset}
+
+\guanyu{Design a statistic to show that keywords exists in most datasets.}
+
+Key Observations: In \fillme\% structured datasets, there exists at least one "Critical KeyWords" (CKW) in each row of data. If leaker adds noise on CKW, the meaning of the data will be absolutely changed, thus makes the whole dataset loses its value.
+
+\subsection{Data analysis with removal of partial critical keywords}
+
+\guanyu{Experiments: x axis-percentage of received data, y axis-accuracy of data analysis.}
+
+Key Observations: When we remove \fillme\% CKW (and the corresponding data rows) from the dataset, there is nearly no negative effect on data analysis. 
+
+\subsection{Insights}
+
+According to our experiments presented above, we find that there does exist some Critical KeyWords (CKW) in most datasets which are immutable, and a good data analysis can be done with data rows of only partial CKWs. So we intend to group data rows with the same CKWs, and allocate data rows with different CKWs to different third parties and keep receipts of data transfer. Then when the data is leaked, we can figure out who is the leaker according to CKWs included in leaked data, and prove it based on receipts.
+
+We intend to solve the problem in 3 aspects:
+
+\begin{itemize}
+\item \textbf{Allocating data with specific CKWs to specific receivers. (\S5)} We group rows of data by CKWs, then allocate data rows with specific CKWs to specific receivers. When we find CKWs in leaked data, we can figure out who is the leaker, even though leaker adds much noise on the other part of data.
+
+\item \textbf{Keeping received dataset unknown to the original data owner. (\S6)} We apply Oblivious Transfer (OT) to let receiver drop data rows with some CKWs, in order to differentiate data sent by sender and data received by receiver. When data leakage happens, we can figure out it is sender or receiver who leaked the data.
+
+\item \textbf{Keeping receipts of data sent and received. (\S7)} We lock the receipts of all data transferred in a ledger. After data leakage, we can open the box and check the receipts, then we can know what data is transferred and no one can deny that.
+\end{itemize}

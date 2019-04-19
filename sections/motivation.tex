@@ -1,0 +1,24 @@
+\section{Motivation}
+\subsection{Background}
+\subsubsection{Data sharing}
+
+\subsubsection{Data leakage in data sharing}
+
+\subsubsection{Guilty detection when data leaked}
+
+\subsection{Why cannot existing solutions prove "who is the leaker"}
+
+\begin{itemize}
+\item \textbf{Data leaker's ability of adding noise to the received data.}
+Carefully-added noise keeps the value of the data while makes it difficult for detection mechanisms to match the original data and leaked data even though content-based leakage detection algorithms are applied. Even though we can do it by some methods of computing similarity of leaked data and original data, there is no way to prove the matching is right.
+
+\item \textbf{Data sender could also be the leaker.}
+Most existing guilt detection approaches assume the data sender is honest. 
+However, in the real world, the data sender may also disclose the information because of their dishonest employees or vulnerable company firewall, and then blame one of the data receiver..
+Therefore, a desired detection approach should be able to prove the innocence of data receivers if they are not the leaker.
+On the other hand, the approach should also protect the sender so that a receiver cannot maliciously blame the sender as the leaker.
+
+\item \textbf{After data leakage, both sender and receiver may deny the facts of what has been sent/received.}
+Worse even, it is hard to prove who is lying.
+For example, a receiver who leaked the data may deny the receipt of a specific portion of the data.
+\end{itemize}

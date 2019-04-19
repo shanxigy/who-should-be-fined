@@ -1,0 +1,64 @@
+\section{Introduction}
+
+Data sharing among authorized parties is increasing common today and a typical example is big data analysis outsourcing to third party companies.
+As data protection becomes a major concern, new regulation and laws has been coming out in recent years. 
+For example, Europe's General Data Protection Regulation (GDPR)~\cite{gdpr} became enforceable since May 2018, by which violators may be fined up to 4\% of their annual worldwide turnover in case of an data breach~\cite{google-fined}.
+California's Consumer Privacy Act (CCPA)~\cite{ccpa} will be effective starting from 2020.
+Under this background, guilty detection in data leakage becomes a key challenge to achieve justice and enable the enforcement of new regulations.
+
+%\guanyu{Briefly introduce Data sharing.}
+%Guilty detection in data leakage is an important topic of data sharing. \guanyu{give an example}.
+%\zhiyi{Some background here: Europe's GDBR,\\
+%	California's CCPA: https://www.caprivacy.org/ \\
+%	Google was fined because of data leakage: \\ https://www.nytimes.com/2019/01/21/technology/google-europe-gdpr-fine.html }
+
+% Introduce related works
+Guilty detection problem in data leakage has been explored for years and the approaches fall into two main categories: 
+\begin{enumerate*} [label=(\roman*)]
+	\item watermarking shared data through data alterations~\cite{agrawal2002watermarking},
+	\item allocating different portion of data across data receivers\cite{data-leakage-detection}.
+\end{enumerate*}
+
+However, all of the existing solutions only guess who is more likely to be the leaker, which apparently cannot dictate a million-dollar ticket.
+Furthermore, existing solutions are not sufficient when the original data owner (called the sender) leaks the data instead of data receivers.
+In fact, there is still a big gap before we get an desired guilt detection mechanism. 
+Specifically, there are 3 challenges in proving "who is the leaker":
+
+\begin{itemize}
+\item \textbf{Data leaker's ability of adding noise to the received data.}
+Carefully-added noise keeps the value of the data while makes it difficult for detection mechanisms to match the original data and leaked data even though content-based leakage detection algorithms are applied. Even though we can do it by some methods of computing similarity of leaked data and original data, there is no way to prove the matching is right.
+
+\item \textbf{Data sender could also be the leaker.}
+Most existing guilt detection approaches assume the data sender is honest. 
+However, in the real world, the data sender may also disclose the information because of their dishonest employees or vulnerable company firewall, and then blame one of the data receiver..
+Therefore, a desired detection approach should be able to prove the innocence of data receivers if they are not the leaker.
+On the other hand, the approach should also protect the sender so that a receiver cannot maliciously blame the sender as the leaker.
+
+\item \textbf{After data leakage, both sender and receiver may deny the facts of what has been sent/received.}
+Worse even, it is hard to prove who is lying.
+For example, a receiver who leaked the data may deny the receipt of a specific portion of the data.
+\end{itemize}
+
+To deal with above challenges, we first analyze \fillme different structured datasets of \fillme serious data leakage events in history. Our key observations are: (1) In \fillme\% structured datasets, there exists at least one "Critical KeyWords" (CKW) in each row of data. If leaker adds noise on CKW, the meaning of the data will be absolutely changed, thus makes the whole dataset loses its value. (2) When we remove \fillme\% CKW (and the corresponding data rows) from the dataset, there is nearly no negative effect on data analysis. 
+
+Taken the insight above, we present \name, a dataset sharing system with provable guilty detection in data leakage. In data sharing, sender decide only to send data rows with part of CKWs to receiver instead of the whole dataset. In this way \name can efficiently prove the leaker in a data leakage, while maintaining the value of dataset for third party analysis.
+
+For specifically, we solve the challenges in 3 aspects: 
+
+\begin{itemize}
+\item \textbf{Allocating data with specific CKWs to specific receivers.} We group rows of data by CKWs, then allocate data rows with specific CKWs to specific receivers. When we find CKWs in leaked data, we can figure out who is the leaker, even though leaker adds much noise on the other part of data.
+
+\item \textbf{Keeping received dataset unknown to the original data owner.} We apply Oblivious Transfer (OT) to let receiver drop data rows with some CKWs, in order to differentiate data sent by sender and data received by receiver. When data leakage happens, we can figure out it is sender or receiver who leaked the data.
+
+\item \textbf{Keeping receipts of data sent and received.} We lock the receipts of all data transferred in a ledger. After data leakage, we can open the box and check the receipts, then we can know what data is transferred and no one can deny that.
+\end{itemize}
+
+We implemented real-world system of \name. In our system, 
+
+Following are our roadmaps and contributions of this paper:
+
+\begin{itemize}
+\item Motivation and our analysis of structure dataset. (\S2-3)
+\item \name, a dataset sharing system with provable guilty detection in data leakage. (\S4-8)
+\item Implementation and evaluation. (\S9-10)
+\end{itemize}

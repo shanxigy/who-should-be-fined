@@ -1,0 +1,51 @@
+\newcommand{\guanyu}[1]{{\color{orange} GuanYu: {#1}}}
+\newcommand{\zhiyi}[1]{{\color{blue} Zhiyi: {#1]}}}
+\newcommand{\xinyu}[1]{{\color{red} Xinyu: {#1}}}
+
+\newcommand{\fillme}{{\bf XXX}~}
+\newcommand{\name}{{Name}\xspace}
+
+\newcommand{\tightcaption}[1]{\vspace{-0.3cm}\caption{{\normalfont{\textit{{#1}}}}}\vspace{-0.3cm}}
+\newcommand{\tightsection}[1]{\vspace{-0.2cm}\section{#1}\vspace{-0.03cm}}
+\newcommand{\tightsubsection}[1]{\vspace{-0.32cm}\subsection{#1}\vspace{-0.05cm}}
+\newcommand{\tightsubsubsection}[1]{\vspace{-0.01in}\subsubsection{#1}\vspace{-0.01cm}}
+
+\newcommand{\eg}{{\it e.g.,}\xspace}
+\newcommand{\ie}{{\it i.e.,}\xspace}
+\newcommand{\etal}{{\it et.~al}\xspace}
+\newcommand{\bigO}{\mathrm{O}}
+
+\newcommand{\myparashort}[1]{\vspace{0.02cm}\noindent{\bf {#1}}~}
+\newcommand{\mypara}[1]{\vspace{0.02cm}\noindent{\bf {#1}:}~}
+\newcommand{\myparatight}[1]{\vspace{0.03cm}\noindent{\bf {#1}:}~}
+\newcommand{\myparaq}[1]{\smallskip\noindent{\bf {#1}?}~}
+\newcommand{\myparaittight}[1]{\smallskip\noindent{\emph {#1}:}~}
+\newcommand{\question}[1]{\smallskip\noindent{\emph{Q:~#1}}\smallskip}
+\newcommand{\myparaqtight}[1]{\smallskip\noindent{\bf {#1}}~}
+
+\newif\ifmark
+\newif\ifhidenote
+\marktrue
+%\markfalse
+\hidenotetrue
+%\hidenotefalse
+
+\newif\ifspace
+\spacetrue
+%\spacefalse
+
+% definition for revision mark 
+\usepackage[normalem]{ulem}
+\ifmark
+\newcommand{\rev}[1]{\uwave{#1}}
+\newcommand{\del}[1]{\sout{#1}}
+\ifhidenote
+\newcommand{\note}[1]{}
+\else
+\newcommand{\note}[1]{{\sffamily\itshape\bfseries\uline{#1}}}
+\fi
+\else
+\newcommand{\rev}[1]{{#1}}
+\newcommand{\del}[1]{}
+\newcommand{\note}[1]{}
+\fi
